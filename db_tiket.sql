@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jun 2023 pada 05.22
--- Versi server: 10.1.34-MariaDB
--- Versi PHP: 5.6.37
+-- Generation Time: 04 Jul 2023 pada 19.36
+-- Versi Server: 10.1.25-MariaDB
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -38,6 +38,18 @@ CREATE TABLE `booking` (
   `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `booking`
+--
+
+INSERT INTO `booking` (`id_booking`, `kode_booking`, `id_pengunjung`, `id_tiket`, `anak`, `dewasa`, `status`) VALUES
+(1, '7808608', 2, '1', '5', '5', 'unpaid'),
+(2, '3527555', 2, '1', '4', '4', 'unpaid'),
+(3, '7408084', 2, '1', '0', '2', 'unpaid'),
+(4, '1156915', 1, '1', '4', '2', 'paid'),
+(5, '9252511', 1, '1', '2', '2', 'paid'),
+(6, '5746040', 1, '1', '2', '4', 'unpaid');
+
 -- --------------------------------------------------------
 
 --
@@ -53,6 +65,14 @@ CREATE TABLE `konfirmasi` (
   `status_bayar` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `konfirmasi`
+--
+
+INSERT INTO `konfirmasi` (`id_konfirmasi`, `id_booking`, `id_bayar`, `bukti`, `tgl`, `status_bayar`) VALUES
+(1, 4, 1, '1_2023-06-04.jpg', '2023-06-04', 'lunas'),
+(2, 5, 2, '2_2023-06-04.jpg', '2023-06-04', 'lunas');
+
 -- --------------------------------------------------------
 
 --
@@ -65,6 +85,14 @@ CREATE TABLE `pembayaran` (
   `nomor_bayar` varchar(50) NOT NULL,
   `atas_nama` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`id_bayar`, `metode_bayar`, `nomor_bayar`, `atas_nama`) VALUES
+(1, 'BAYAR DANA', '082373971991', 'UMAR'),
+(2, 'BAYAR BNI', '978654343QF', 'JUMANTO');
 
 -- --------------------------------------------------------
 
@@ -79,6 +107,15 @@ CREATE TABLE `pengunjung` (
   `no_hp` varchar(18) NOT NULL,
   `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `pengunjung`
+--
+
+INSERT INTO `pengunjung` (`id_pengunjung`, `nama_pengunjung`, `email_pengunjung`, `no_hp`, `alamat`) VALUES
+(1, 'AKABEST', 'mardybest@gmail.com', '082373971991', 'Jl wismarini no 09 Pringsewu'),
+(2, 'akabest', 'aka@gmail.com', '0756875858', 'aka@gmail.com'),
+(3, 'mardiyanto', 'mardybest@gmail.com', '09897896767', 'Jl wismarini no 09 Pringsewu');
 
 -- --------------------------------------------------------
 
@@ -155,93 +192,86 @@ INSERT INTO `user` (`user_id`, `user_nama`, `user_username`, `user_password`, `u
 --
 
 --
--- Indeks untuk tabel `booking`
+-- Indexes for table `booking`
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`id_booking`);
 
 --
--- Indeks untuk tabel `konfirmasi`
+-- Indexes for table `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
   ADD PRIMARY KEY (`id_konfirmasi`);
 
 --
--- Indeks untuk tabel `pembayaran`
+-- Indexes for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`id_bayar`);
 
 --
--- Indeks untuk tabel `pengunjung`
+-- Indexes for table `pengunjung`
 --
 ALTER TABLE `pengunjung`
   ADD PRIMARY KEY (`id_pengunjung`);
 
 --
--- Indeks untuk tabel `profil`
+-- Indexes for table `profil`
 --
 ALTER TABLE `profil`
   ADD PRIMARY KEY (`id_profil`);
 
 --
--- Indeks untuk tabel `tiket`
+-- Indexes for table `tiket`
 --
 ALTER TABLE `tiket`
   ADD PRIMARY KEY (`id_tiket`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `booking`
+-- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id_booking` int(25) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id_booking` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT untuk tabel `konfirmasi`
+-- AUTO_INCREMENT for table `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `id_konfirmasi` int(20) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id_konfirmasi` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT untuk tabel `pembayaran`
+-- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_bayar` int(20) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id_bayar` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT untuk tabel `pengunjung`
+-- AUTO_INCREMENT for table `pengunjung`
 --
 ALTER TABLE `pengunjung`
-  MODIFY `id_pengunjung` int(10) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id_pengunjung` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT untuk tabel `profil`
+-- AUTO_INCREMENT for table `profil`
 --
 ALTER TABLE `profil`
   MODIFY `id_profil` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
--- AUTO_INCREMENT untuk tabel `tiket`
+-- AUTO_INCREMENT for table `tiket`
 --
 ALTER TABLE `tiket`
   MODIFY `id_tiket` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-COMMIT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
