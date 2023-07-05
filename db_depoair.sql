@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jul 2023 pada 06.48
+-- Waktu pembuatan: 05 Jul 2023 pada 10.08
 -- Versi server: 10.1.34-MariaDB
 -- Versi PHP: 5.6.37
 
@@ -67,10 +67,16 @@ CREATE TABLE `konsumen` (
   `nama_konsumen` varchar(50) NOT NULL,
   `email_konsumen` varchar(32) NOT NULL,
   `no_hp` varchar(18) NOT NULL,
-  `alamat` text NOT NULL,
-  `latitude` varchar(100) NOT NULL,
-  `longitude` varchar(100) NOT NULL
+  `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `konsumen`
+--
+
+INSERT INTO `konsumen` (`id_konsumen`, `nama_konsumen`, `email_konsumen`, `no_hp`, `alamat`) VALUES
+(1, 'Ratna', 'ratnarosita@gmail.com', '085609086512', 'Pringkumpul'),
+(2, 'Ratna', 'ratnarosita@gmail.com', '085609086512', 'Pringkumpul');
 
 -- --------------------------------------------------------
 
@@ -112,7 +118,7 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga_produk`, `harga_produk1`, `keterangan`) VALUES
-(1, 'ISI ULANG', '6000', '60000', 'HARGA ISI ULANG');
+(1, 'AIR KRAWANG', '6000', '35000', 'HARGA ISI ULANG');
 
 -- --------------------------------------------------------
 
@@ -229,7 +235,7 @@ ALTER TABLE `konfirmasi`
 -- AUTO_INCREMENT untuk tabel `konsumen`
 --
 ALTER TABLE `konsumen`
-  MODIFY `id_konsumen` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_konsumen` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `pembayaran`
