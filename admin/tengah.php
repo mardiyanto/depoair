@@ -681,6 +681,8 @@ echo"
 	} else {
 		echo"<a href='' class='btn btn-primary'>Belum Di bayar</a>";
 	} echo"
+    <a href='detaillokasi.php?id_booking=$t[id_booking]' target='_blank' class='btn btn-primary'>Buka map</a>
+    <a href='openmap.php?id_booking=$t[id_booking]' target='_blank' class='btn btn-primary'>Rute Pengiriman</a>
 	<a href='index.php?aksi=booking' class='btn btn-primary'>Kembali</a>
   </div><!-- /.col -->
   <div class='col-xs-6'>

@@ -25,7 +25,7 @@
                     <?php if( $_SESSION['nama']==''){?>
 											<a href="halaman.php?aksi=book" class="nav-item nav-link">Order Sekarang</a>
 <?php }else{?>
-	<a href="booking.php?aksi=tiket" class="nav-item nav-link">Lihat Order</a>
+	<a href="booking.php?aksi=produk" class="nav-item nav-link">Lihat Order</a>
 	<?php }?>
                   
                     <a href="halaman.php?aksi=hubungi" class="nav-item nav-link">Hubungi Kami</a>

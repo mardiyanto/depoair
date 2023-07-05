@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 05 Jul 2023 pada 03.02
--- Versi Server: 10.1.25-MariaDB
--- PHP Version: 5.6.31
+-- Waktu pembuatan: 05 Jul 2023 pada 06.48
+-- Versi server: 10.1.34-MariaDB
+-- Versi PHP: 5.6.37
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -33,8 +33,11 @@ CREATE TABLE `booking` (
   `kode_booking` varchar(100) NOT NULL,
   `id_konsumen` int(10) NOT NULL,
   `id_produk` varchar(100) NOT NULL,
+  `tgl_booking` varchar(100) NOT NULL,
   `isiulang` varchar(10) NOT NULL,
   `isibaru` varchar(10) NOT NULL,
+  `latitude` varchar(100) NOT NULL,
+  `longitude` varchar(100) NOT NULL,
   `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -126,15 +129,16 @@ CREATE TABLE `profil` (
   `alamat` text NOT NULL,
   `isi` text NOT NULL,
   `gambar` varchar(100) NOT NULL,
-  `akabest` varchar(250) NOT NULL
+  `akabest` varchar(250) NOT NULL,
+  `peta` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `profil`
 --
 
-INSERT INTO `profil` (`id_profil`, `nama_app`, `tahun`, `nama`, `alias`, `alamat`, `isi`, `gambar`, `akabest`) VALUES
-(1, 'Asyifa', '082378978', 'Depot Air Asyifa', 'asyifa@gmail.com', 'Jl. Kartini No.357, Pringsewu Tim., Kec. Pringsewu, Kabupaten Pringsewu, Lampung 35373', '<p>Depot Isi Ulang Air Asyifa adalah sebuah usaha yang berlokasi di Jl. Kartini No. 357, Pringsewu Tim., Kecamatan Pringsewu, Kabupaten Pringsewu, Lampung 35373. Depot ini memiliki fokus pada penyediaan layanan isi ulang air untuk kebutuhan masyarakat sekitar.Depot Isi Ulang Air Asyifa di Jl. Kartini No. 357, Pringsewu Tim., Kecamatan Pringsewu, Kabupaten Pringsewu, Lampung 35373, merupakan tempat yang dapat memenuhi kebutuhan air bersih bagi masyarakat di sekitarnya.</p>\r\n', '18102022034029.jpg', 'mardybest@gmail.com');
+INSERT INTO `profil` (`id_profil`, `nama_app`, `tahun`, `nama`, `alias`, `alamat`, `isi`, `gambar`, `akabest`, `peta`) VALUES
+(1, 'Asyifa', '082378978', 'Depot Air Asyifa', 'asyifa@gmail.com', 'Jl. Kartini No.357, Pringsewu Tim., Kec. Pringsewu, Kabupaten Pringsewu, Lampung 35373', '<p>Depot Isi Ulang Air Asyifa adalah sebuah usaha yang berlokasi di Jl. Kartini No. 357, Pringsewu Tim., Kecamatan Pringsewu, Kabupaten Pringsewu, Lampung 35373. Depot ini memiliki fokus pada penyediaan layanan isi ulang air untuk kebutuhan masyarakat sekitar.Depot Isi Ulang Air Asyifa di Jl. Kartini No. 357, Pringsewu Tim., Kecamatan Pringsewu, Kabupaten Pringsewu, Lampung 35373, merupakan tempat yang dapat memenuhi kebutuhan air bersih bagi masyarakat di sekitarnya.</p>\r\n', '18102022034029.jpg', 'mardybest@gmail.com', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d417.5456218186182!2d104.97320178183496!3d-5.357960222929718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e47334046239b8b%3A0xc46f0ace45e14733!2sAsyifa%20mineral%20krawang!5e0!3m2!1sid!2sid!4v1688525838731!5m2!1sid!2sid');
 
 -- --------------------------------------------------------
 
@@ -164,86 +168,93 @@ INSERT INTO `user` (`user_id`, `user_nama`, `user_username`, `user_password`, `u
 --
 
 --
--- Indexes for table `booking`
+-- Indeks untuk tabel `booking`
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`id_booking`);
 
 --
--- Indexes for table `konfirmasi`
+-- Indeks untuk tabel `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
   ADD PRIMARY KEY (`id_konfirmasi`);
 
 --
--- Indexes for table `konsumen`
+-- Indeks untuk tabel `konsumen`
 --
 ALTER TABLE `konsumen`
   ADD PRIMARY KEY (`id_konsumen`);
 
 --
--- Indexes for table `pembayaran`
+-- Indeks untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`id_bayar`);
 
 --
--- Indexes for table `produk`
+-- Indeks untuk tabel `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id_produk`);
 
 --
--- Indexes for table `profil`
+-- Indeks untuk tabel `profil`
 --
 ALTER TABLE `profil`
   ADD PRIMARY KEY (`id_profil`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `booking`
+-- AUTO_INCREMENT untuk tabel `booking`
 --
 ALTER TABLE `booking`
   MODIFY `id_booking` int(25) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `konfirmasi`
+-- AUTO_INCREMENT untuk tabel `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
   MODIFY `id_konfirmasi` int(20) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `konsumen`
+-- AUTO_INCREMENT untuk tabel `konsumen`
 --
 ALTER TABLE `konsumen`
   MODIFY `id_konsumen` int(10) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `pembayaran`
+-- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
   MODIFY `id_bayar` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
--- AUTO_INCREMENT for table `produk`
+-- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
   MODIFY `id_produk` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `profil`
+-- AUTO_INCREMENT untuk tabel `profil`
 --
 ALTER TABLE `profil`
   MODIFY `id_profil` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;COMMIT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

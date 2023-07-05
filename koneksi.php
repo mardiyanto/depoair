@@ -12,3 +12,4 @@ $k_k=mysqli_fetch_array($kontak_kami);
 $kadis=mysqli_query($koneksi,"SELECT * FROM profil WHERE id_profil ='2'");
 $tt=mysqli_fetch_array($kadis); 
 ?>
+

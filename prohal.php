@@ -149,8 +149,8 @@
                             <h1 class="display-5 mb-5">Pesan Di depot Kami</h1>
                         </div>
                         <form action="booking.php?aksi=inputkonsumen" method="post">
-                        <input type='hidden'  name='latitude'/>
-                        <input type='hidden'  name='longitude'/>
+                        <input type='hidden'  id="latitude" name='latitude'/>
+                        <input type='hidden'  id="longitude" name='longitude'/>
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <div class="form-floating">

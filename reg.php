@@ -166,7 +166,7 @@ elseif($_GET['aksi']=='booking'){
 		$bookingCode = generateBookingCode();	
 echo"
 <section class='content'>
-<h2 class='page-header'>PILIH PAKET WISATA</h2>
+<h2 class='page-header'>PILIH ISI ULANG DEPOT</h2>
            <div class='row'>
                 <div class='col-lg-12'>
                        
@@ -178,6 +178,10 @@ echo"
                                             </div>
                                             <div class='modal-body'>
                                                <form role='form' method='post' action='booking.php?aksi=inputbooking'>
+                                               <label>Lokasi anda </label>
+                                               <input type='text' class='form-control' id='latitude' name='latitude' readonly/>
+                                               <label>Lokasi anda </label>
+                                               <input type='text' class='form-control' id='longitude' name='longitude' readonly/>
                                                <label>Kode Booking</label>
                                                <input type='text' class='form-control' value='$bookingCode'  disabled/>
                                                <input type='hidden' class='form-control' value='$bookingCode' name='kode_booking'>
@@ -192,10 +196,10 @@ echo"
                                                 }
                                                    echo "
                                                </select><br>
-											   <label>Jumlah Anak-Anak</label>
-											   <input type='text' class='form-control' name='isibaru' required/><br>
-											   <label>Jumlah Dewasa</label>
-											   <input type='text' class='form-control' name='isiulang' required/><br>
+											   <label>QTY BELI GALON DAN ISI</label>
+											   <input type='number' class='form-control' name='isibaru' /><br>
+											   <label>QTY ISI GALON</label>
+											   <input type='number' class='form-control' name='isiulang' /><br>
                             
 												<input type='hidden' class='form-control' value='$_SESSION[id]' name='id_konsumen'/><br>
                                                 <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
@@ -212,14 +216,15 @@ echo"
 ";
 }
 elseif($_GET['aksi']=='inputbooking'){
+  $currentDate = date('d-m-Y');
 	// Memeriksa apakah input kosong
 	if (empty($_POST[id_konsumen]) || empty($_POST[id_produk])) {
 		echo "<script>window.alert('Data yang Anda isikan belum lengkap');
 		window.location=('booking.php?aksi=booking')</script>";
 		exit();
 	}	
-	mysqli_query($koneksi,"insert into booking (id_konsumen,kode_booking,id_produk,isibaru,isiulang,status) 
-	values ('$_POST[id_konsumen]','$_POST[kode_booking]','$_POST[id_produk]','$_POST[isibaru]','$_POST[isiulang]','unpaid')");  
+	mysqli_query($koneksi,"insert into booking (id_konsumen,kode_booking,id_produk,tgl_booking,isibaru,isiulang,latitude,longitude,status) 
+	values ('$_POST[id_konsumen]','$_POST[kode_booking]','$_POST[id_produk]','$currentDate','$_POST[isibaru]','$_POST[isiulang]','$_POST[latitude]','$_POST[longitude]','unpaid')");  
 	echo "<script>window.location=('booking.php?aksi=detailbooking&kode_booking=$_POST[kode_booking]')</script>";
 }
 
@@ -444,9 +449,9 @@ elseif($_GET['aksi']=='konfirmasi'){
 												   <input type='text' class='form-control' value='Rp.$total_rp'  disabled/>
 												   <input type='hidden' class='form-control' value='$t[id_booking]' name='id_booking'>
 												   <div class='form-group'>
-												   <label>Pilih Meto Pembayaran</label>
+												   <label>Pilih metode Pembayaran</label>
 												   <select class='form-control select2' style='width: 100%;' name=id_bayar>
-												   <option value='' selected>Pilih Produk</option>"; 
+												   <option value='' selected>Pilih metode Pembayaran</option>"; 
 													$sql=mysqli_query($koneksi,"SELECT * FROM pembayaran ORDER BY id_bayar");
 													while ($c=mysqli_fetch_array($sql))
 													{

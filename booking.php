@@ -26,6 +26,27 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+        <!-- map api start -->
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet"  href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css"/>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+        <!-- map api end --> 
   </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
   <body class="hold-transition skin-blue layout-top-nav">
@@ -85,7 +106,7 @@
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="booking.php?aksi=produk" class="btn btn-default btn-flat">TIKET SAYA</a>
+                          <a href="booking.php?aksi=produk" class="btn btn-default btn-flat">Pesanan Saya</a>
                         </div>
                         <div class="pull-right">
                           <a href="booking.php?aksi=logout" class="btn btn-default btn-flat">Sign out</a>
@@ -134,5 +155,46 @@
     <script src="sys/bootstrap/dist/js/app.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="sys/bootstrap/dist/js/demo.js"></script>
+    <!-- map api start -->
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1IjoiaXRyc2thcnRpbmkiLCJhIjoiY2xpd2lqbDMwMzlrMjNsbGd3c3dnY3Q1ZSJ9.eFCToH4luPNjPxsxM6_kkg';
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+
+            document.getElementById('latitude').value = latitude;
+            document.getElementById('longitude').value = longitude;
+
+            const map = new mapboxgl.Map({
+              container: 'map',
+              style: 'mapbox://styles/mapbox/streets-v12',
+              center: [longitude, latitude],
+              zoom: 12,
+            });
+
+            const marker = new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
+
+            const geocoder = new MapboxGeocoder({
+              accessToken: mapboxgl.accessToken,
+              mapboxgl: mapboxgl,
+            });
+
+            map.addControl(geocoder);
+
+            geocoder.on('result', (event) => {
+              map.getSource('single-point').setData(event.result.geometry);
+            });
+          },
+          (error) => {
+            console.log('Error getting current location:', error);
+          }
+        );
+      } else {
+        console.log('Geolocation is not supported by this browser.');
+      }
+    </script>
+        <!-- map api edb -->
   </body>
 </html>
