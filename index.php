@@ -297,7 +297,7 @@ session_start();
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" ame='no_hp' id="mobile" placeholder="Your Mobile">
+                                    <input type="text" class="form-control" name='no_hp' id="mobile" placeholder="Your Mobile">
                                     <label for="mobile">Nomor Telpone</label>
                                 </div>
                             </div>
