@@ -35,7 +35,7 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <a href="sys/bootstrap/index2.html" class="navbar-brand"><?php echo"$k_k[alias]";?></a>
+              <a href="sys/bootstrap/index2.html" class="navbar-brand"><?php echo"$k_k[nama_app]";?></a>
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                 <i class="fa fa-bars"></i>
               </button>
@@ -85,7 +85,7 @@
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="booking.php?aksi=tiket" class="btn btn-default btn-flat">TIKET SAYA</a>
+                          <a href="booking.php?aksi=produk" class="btn btn-default btn-flat">TIKET SAYA</a>
                         </div>
                         <div class="pull-right">
                           <a href="booking.php?aksi=logout" class="btn btn-default btn-flat">Sign out</a>

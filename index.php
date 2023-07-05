@@ -44,59 +44,7 @@ session_start();
     <!-- Spinner End -->
 
 
-    <!-- Navbar Start -->
-    <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
-        <div class="top-bar row gx-0 align-items-center d-none d-lg-flex">
-            <div class="col-lg-6 px-5 text-start">
-                <small><i class="fa fa-map-marker-alt text-primary me-2"></i><?php echo"$k_k[alamat]";?></small>
-                <small class="ms-4"><i class="fa fa-clock text-primary me-2"></i>9.00 am - 9.00 pm</small>
-            </div>
-            <div class="col-lg-6 px-5 text-end">
-                <small><i class="fa fa-envelope text-primary me-2"></i><?php echo"$k_k[alias]";?></small>
-                <small class="ms-4"><i class="fa fa-phone-alt text-primary me-2"></i><?php echo"$k_k[tahun]";?></small>
-            </div>
-        </div>
-
-        <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-            <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
-                <h1 class="display-5 text-primary m-0"><?php echo"$k_k[nama]";?></h1>
-            </a>
-            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="service.html" class="nav-item nav-link">Services</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu border-light m-0">
-                            <a href="project.html" class="dropdown-item">Projects</a>
-                            <a href="feature.html" class="dropdown-item">Features</a>
-                            <a href="team.html" class="dropdown-item">Team Member</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
-                </div>
-                <div class="d-none d-lg-flex ms-2">
-                    <a class="btn btn-light btn-sm-square rounded-circle ms-3" href="">
-                        <small class="fab fa-facebook-f text-primary"></small>
-                    </a>
-                    <a class="btn btn-light btn-sm-square rounded-circle ms-3" href="">
-                        <small class="fab fa-twitter text-primary"></small>
-                    </a>
-                    <a class="btn btn-light btn-sm-square rounded-circle ms-3" href="">
-                        <small class="fab fa-linkedin-in text-primary"></small>
-                    </a>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <!-- Navbar End -->
-
+    <?php include"menu.php";?>
 
     <!-- Carousel Start -->
     <div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
@@ -321,8 +269,8 @@ session_start();
     <!-- Features End -->
 
 
-    <!-- Callback Start -->
-    <div class="container-fluid callback my-5 pt-5">
+      <!-- Callback Start -->
+      <div class="container-fluid callback my-5 pt-5">
         <div class="container pt-5">
             <div class="row justify-content-center">
                 <div class="col-lg-7">
@@ -331,41 +279,40 @@ session_start();
                             <p class="d-inline-block border rounded text-primary fw-semi-bold py-1 px-3">ORDER</p>
                             <h1 class="display-5 mb-5">Pesan Di depot Kami</h1>
                         </div>
+                        <form action="booking.php?aksi=inputkonsumen" method="post">
+                        <input type='hidden'  name='latitude'/>
+                        <input type='hidden'  name='longitude'/>
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                    <input type="text" class="form-control" name='nama_konsumen' id="name" placeholder="Nama lengkap">
                                     <label for="name">Your Name</label>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="mail" placeholder="Your Email">
-                                    <label for="mail">Your Email</label>
+                                    <input type="email" name='email_konsumen' class="form-control" id="mail" placeholder="Your Email">
+                                    <label for="mail">Alamat Email</label>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="mobile" placeholder="Your Mobile">
-                                    <label for="mobile">Your Mobile</label>
+                                    <input type="text" class="form-control" ame='no_hp' id="mobile" placeholder="Your Mobile">
+                                    <label for="mobile">Nomor Telpone</label>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                    <label for="subject">Subject</label>
-                                </div>
-                            </div>
+                        
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
-                                    <label for="message">Message</label>
+                                    <textarea class="form-control" name='alamat' placeholder="isi alamat lengkap di sini" id="message" style="height: 100px"></textarea>
+                                    <label for="message">alamat lengkap</label>
                                 </div>
                             </div>
                             <div class="col-12 text-center">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Submit Now</button>
+                                <button class="btn btn-primary w-100 py-3" type="submit">Order Now</button>
                             </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -43,7 +43,7 @@ echo"<div class='row'>
 elseif($_GET['aksi']=='ikon'){
 include "../ikon.php";
 }
-elseif($_GET['aksi']=='tiket'){
+elseif($_GET['aksi']=='produk'){
     echo"<div class='row'>
                     <div class='col-lg-12'>
                         <div class='panel panel-default'>
@@ -52,28 +52,28 @@ elseif($_GET['aksi']=='tiket'){
                             <div class='panel-body'>	
                 <button class='btn btn-info' data-toggle='modal' data-target='#uiModal'>
                                     Tambah Data
-                                </button> <a href='laporan.php?aksi=tiket' target='_blank' class='btn btn-info' ><i class='fa fa-print' ></i></span></a></br></br>
+                                </button> <a href='laporan.php?aksi=produk' target='_blank' class='btn btn-info' ><i class='fa fa-print' ></i></span></a></br></br>
                                    <div class='table-responsive'>		
          <table id='example1' class='table table-bordered table-striped'>
                                         <thead>
                                             <tr> <th>No</th>
-                                                <th>Nama Tiket</th>
-                                                <th>Dewasa</th>	 
-                                                <th>Anak</th>	 
+                                                <th>Nama Produk</th>
+                                                <th>isi ulang</th>	 
+                                                <th>isi Baru</th>	 
                                                  <th>AKSI</th>	
                                             </tr>
                                         </thead><tbody>
                         ";
                 
     $no=0;
-    $sql=mysqli_query($koneksi," SELECT * FROM tiket ORDER BY id_tiket ASC");
+    $sql=mysqli_query($koneksi," SELECT * FROM produk ORDER BY id_produk ASC");
     while ($t=mysqli_fetch_array($sql)){	
     $no++;
                                         echo"
                                             <tr><td>$no</td>
-                                                <td>$t[nama_tiket]</td>
-                                                <td>$t[harga_tiket]</td> 
-                                                <td>$t[harga_tiket1]</td> 
+                                                <td>$t[nama_produk]</td>
+                                                <td>$t[harga_produk]</td> 
+                                                <td>$t[harga_produk1]</td> 
                                 <td><div class='btn-group'>
                           <button type='button' class='btn btn-info'>AKSI</button>
                           <button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown'>
@@ -81,8 +81,8 @@ elseif($_GET['aksi']=='tiket'){
                             <span class='sr-only'>Toggle Dropdown</span>
                           </button>
                           <ul class='dropdown-menu' role='menu'>
-                            <li><a href='index.php?aksi=edittiket&id_tiket=$t[id_tiket]' title='Edit'><i class='fa fa-pencil'></i>edit</a></li>
-                            <li><a href='hapus.php?aksi=hapustiket&id_tiket=$t[id_tiket]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_tiket] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
+                            <li><a href='index.php?aksi=editproduk&id_produk=$t[id_produk]' title='Edit'><i class='fa fa-pencil'></i>edit</a></li>
+                            <li><a href='hapus.php?aksi=hapusproduk&id_produk=$t[id_produk]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_produk] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
                             </ul>
                         </div></td>
                                             </tr>";
@@ -107,14 +107,14 @@ elseif($_GET['aksi']=='tiket'){
                                                 <h4 class='modal-title' id='H3'>Input Data</h4>
                                             </div>
                                             <div class='modal-body'>
-                                               <form role='form' method='post' action='input.php?aksi=inputtiket'>
+                                               <form role='form' method='post' action='input.php?aksi=inputproduk'>
                                         
-                                                <label>nama_tiket</label>
-                                                <input type='text' class='form-control' name='nama_tiket'/><br>
-                                                <label>HARGA Tiket Dewasa</label>
-                                                <input type='text' class='form-control' name='harga_tiket'/><br>
-                                                <label>HARGA Tiket Anak</label>
-                                                <input type='text' class='form-control' name='harga_tiket1'/><br>
+                                                <label>nama_produk</label>
+                                                <input type='text' class='form-control' name='nama_produk'/><br>
+                                                <label>HARGA Produk isi ulang</label>
+                                                <input type='text' class='form-control' name='harga_produk'/><br>
+                                                <label>HARGA Produk galon baru</label>
+                                                <input type='text' class='form-control' name='harga_produk1'/><br>
                                                 <label>Keterangan</label>
                                                 <input type='text' class='form-control' name='keterangan'/><br>
                                                 <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
@@ -130,23 +130,23 @@ elseif($_GET['aksi']=='tiket'){
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////
     
-    elseif($_GET['aksi']=='edittiket'){
-    $tebaru=mysqli_query($koneksi," SELECT * FROM tiket WHERE id_tiket=$_GET[id_tiket] ");
+    elseif($_GET['aksi']=='editproduk'){
+    $tebaru=mysqli_query($koneksi," SELECT * FROM produk WHERE id_produk=$_GET[id_produk] ");
     $t=mysqli_fetch_array($tebaru);
     echo"
     <div class='row'>
                     <div class='col-lg-12'>
                         <div class='panel panel-default'>
-                            <div class='panel-heading'>EDIT  $t[nama_tiket] $t[id_tiket]
+                            <div class='panel-heading'>EDIT  $t[nama_produk] $t[id_produk]
                             </div>
                             <div class='panel-body'>
-    <form id='form1'  method='post' action='edit.php?aksi=prosesedittiket&id_tiket=$t[id_tiket]'>
-                                                <label>nama tiket</label>
-                                                <input type='text' class='form-control' value='$t[nama_tiket]' name='nama_tiket'/><br>
-                                                <label>harga Anak</label>
-                                                <input type='text' class='form-control' value='$t[harga_tiket1]' name='harga_tiket1'/><br>
-                                                <label>harga Dewasa</label>
-                                                <input type='text' class='form-control' value='$t[harga_tiket]' name='harga_tiket'/><br>
+    <form id='form1'  method='post' action='edit.php?aksi=proseseditproduk&id_produk=$t[id_produk]'>
+                                                <label>nama produk</label>
+                                                <input type='text' class='form-control' value='$t[nama_produk]' name='nama_produk'/><br>
+                                                <label>harga galon baru</label>
+                                                <input type='text' class='form-control' value='$t[harga_produk1]' name='harga_produk1'/><br>
+                                                <label>harga isi ulang</label>
+                                                <input type='text' class='form-control' value='$t[harga_produk]' name='harga_produk'/><br>
                                                 <label>Keterangan</label>
                                                 <input type='text' class='form-control' value='$t[keterangan]' name='keterangan'/><br>
                                   
@@ -269,7 +269,7 @@ elseif($_GET['aksi']=='tiket'){
             </form></div> </div></div></div>
         ";
         }  
- elseif($_GET['aksi']=='pengunjung'){
+ elseif($_GET['aksi']=='konsumen'){
         echo"<div class='row'>
                         <div class='col-lg-12'>
                             <div class='panel panel-default'>
@@ -278,7 +278,7 @@ elseif($_GET['aksi']=='tiket'){
                                 <div class='panel-body'>	
                     <button class='btn btn-info' data-toggle='modal' data-target='#uiModal'>
                                         Tambah Data
-                                    </button> <a href='laporan.php?aksi=pengunjung' target='_blank' class='btn btn-info' ><i class='fa fa-print' ></i></span></a></br></br>
+                                    </button> <a href='laporan.php?aksi=konsumen' target='_blank' class='btn btn-info' ><i class='fa fa-print' ></i></span></a></br></br>
                                        <div class='table-responsive'>		
              <table id='example1' class='table table-bordered table-striped'>
                                             <thead>
@@ -291,12 +291,12 @@ elseif($_GET['aksi']=='tiket'){
                             ";
                     
         $no=0;
-        $sql=mysqli_query($koneksi," SELECT * FROM pengunjung ORDER BY id_pengunjung ASC");
+        $sql=mysqli_query($koneksi," SELECT * FROM konsumen ORDER BY id_konsumen ASC");
         while ($t=mysqli_fetch_array($sql)){	
         $no++;
                                             echo"
                                                 <tr><td>$no</td>
-                                                    <td>$t[nama_pengunjung]</td>
+                                                    <td>$t[nama_konsumen]</td>
                                                     <td>$t[no_hp]</td> 
                                     <td><div class='btn-group'>
                               <button type='button' class='btn btn-info'>AKSI</button>
@@ -305,8 +305,8 @@ elseif($_GET['aksi']=='tiket'){
                                 <span class='sr-only'>Toggle Dropdown</span>
                               </button>
                               <ul class='dropdown-menu' role='menu'>
-                                <li><a href='index.php?aksi=editpengunjung&id_pengunjung=$t[id_pengunjung]' title='Edit'><i class='fa fa-pencil'></i>edit</a></li>
-                                <li><a href='hapus.php?aksi=hapuspengunjung&id_pengunjung=$t[id_pengunjung]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pengunjung] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
+                                <li><a href='index.php?aksi=editkonsumen&id_konsumen=$t[id_konsumen]' title='Edit'><i class='fa fa-pencil'></i>edit</a></li>
+                                <li><a href='hapus.php?aksi=hapuskonsumen&id_konsumen=$t[id_konsumen]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_konsumen] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
                                 </ul>
                             </div></td>
                                                 </tr>";
@@ -331,14 +331,14 @@ elseif($_GET['aksi']=='tiket'){
                                                     <h4 class='modal-title' id='H3'>Input Data</h4>
                                                 </div>
                                                 <div class='modal-body'>
-                                                   <form role='form' method='post' action='input.php?aksi=inputpengunjung'>
+                                                   <form role='form' method='post' action='input.php?aksi=inputkonsumen'>
                                             
-                                                    <label>nama pengunjung</label>
-                                                    <input type='text' class='form-control' name='nama_pengunjung'/><br>
+                                                    <label>nama konsumen</label>
+                                                    <input type='text' class='form-control' name='nama_konsumen'/><br>
                                                     <label>no hp</label>
                                                     <input type='text' class='form-control' name='no_hp'/><br>
                                                     <label>Email</label>
-                                                    <input type='email' class='form-control' name='email_pengunjung'/><br>
+                                                    <input type='email' class='form-control' name='email_konsumen'/><br>
                                                     <label>Alamat</label>
                                                     <input type='text' class='form-control' name='alamat'/><br>
                                                     <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
@@ -354,23 +354,23 @@ elseif($_GET['aksi']=='tiket'){
  }
 /////////////////////////////////////////////////////////////////////////////////////////////////
         
-elseif($_GET['aksi']=='editpengunjung'){
-        $tebaru=mysqli_query($koneksi," SELECT * FROM pengunjung WHERE id_pengunjung=$_GET[id_pengunjung] ");
+elseif($_GET['aksi']=='editkonsumen'){
+        $tebaru=mysqli_query($koneksi," SELECT * FROM konsumen WHERE id_konsumen=$_GET[id_konsumen] ");
         $t=mysqli_fetch_array($tebaru);
         echo"
         <div class='row'>
                         <div class='col-lg-12'>
                             <div class='panel panel-default'>
-                                <div class='panel-heading'>EDIT  $t[nama_pengunjung] $t[id_pengunjung]
+                                <div class='panel-heading'>EDIT  $t[nama_konsumen] $t[id_konsumen]
                                 </div>
                                 <div class='panel-body'>
-        <form id='form1'  method='post' action='edit.php?aksi=proseseditpengunjung&id_pengunjung=$t[id_pengunjung]'>
-                                                    <label>nama pengunjung</label>
-                                                    <input type='text' class='form-control' value='$t[nama_pengunjung]' name='nama_pengunjung'/><br>
+        <form id='form1'  method='post' action='edit.php?aksi=proseseditkonsumen&id_konsumen=$t[id_konsumen]'>
+                                                    <label>nama konsumen</label>
+                                                    <input type='text' class='form-control' value='$t[nama_konsumen]' name='nama_konsumen'/><br>
                                                     <label>harga</label>
                                                     <input type='text' class='form-control' value='$t[no_hp]' name='no_hp'/><br>                                
                                                     <label>Email</label>
-                                                    <input type='email' class='form-control' value='$t[email_pengunjung]' name='email_pengunjung'/><br>
+                                                    <input type='email' class='form-control' value='$t[email_konsumen]' name='email_konsumen'/><br>
                                                     <label>Alamat</label>
                                                     <input type='text' class='form-control' value='$t[alamat]' name='alamat'/><br>
                 <div class='modal-footer'>
@@ -489,7 +489,7 @@ elseif($_GET['aksi']=='editkonfirmasi'){
                                         <thead>
                                             <tr> <th>No</th>
                                                 <th>Nama Pengunjung</th>
-                                                <th>Nama Tiket</th>	 
+                                                <th>Nama Produk</th>	 
                                                 <th>Status Bayar</th>	 
                                                 <th>AKSI</th>	
                                             </tr>
@@ -497,13 +497,13 @@ elseif($_GET['aksi']=='editkonfirmasi'){
                         ";
                 
     $no=0;
-    $sql=mysqli_query($koneksi," SELECT * FROM booking,pengunjung,tiket WHERE booking.id_pengunjung=pengunjung.id_pengunjung AND booking.id_tiket=tiket.id_tiket  ORDER BY booking.id_booking ASC");
+    $sql=mysqli_query($koneksi," SELECT * FROM booking,konsumen,produk WHERE booking.id_konsumen=konsumen.id_konsumen AND booking.id_produk=produk.id_produk  ORDER BY booking.id_booking ASC");
     while ($t=mysqli_fetch_array($sql)){	
     $no++;
                                         echo"
                                             <tr><td>$no</td>
-                                                <td>$t[nama_pengunjung]</td>
-                                                <td>$t[nama_tiket]</td> 
+                                                <td>$t[nama_konsumen]</td>
+                                                <td>$t[nama_produk]</td> 
                                                 <td>$t[status]</td> 
                                 <td><div class='btn-group'>
                           <button type='button' class='btn btn-info'>AKSI</button>
@@ -544,31 +544,31 @@ elseif($_GET['aksi']=='editkonfirmasi'){
                                                <input type='text' class='form-control' value='$bookingCode'  disabled/>
                                                <input type='hidden' class='form-control' value='$bookingCode' name='kode_booking'>
                                                <div class='form-group'>
-                                               <label>Pilih Tiket</label>
-                                               <select class='form-control select2' style='width: 100%;' name=id_tiket>
-                                               <option value='' selected>Pilih Tiket</option>"; 
-                                                $sql=mysqli_query($koneksi,"SELECT * FROM tiket ORDER BY id_tiket");
+                                               <label>Pilih Produk</label>
+                                               <select class='form-control select2' style='width: 100%;' name=id_produk>
+                                               <option value='' selected>Pilih Produk</option>"; 
+                                                $sql=mysqli_query($koneksi,"SELECT * FROM produk ORDER BY id_produk");
                                                 while ($c=mysqli_fetch_array($sql))
                                                 {
-                                                   echo "<option value=$c[id_tiket]>$c[nama_tiket]</option>";
+                                                   echo "<option value=$c[id_produk]>$c[nama_produk]</option>";
                                                 }
                                                    echo "
                                                </select><br><br>
                                                <label>Pilih Pengunjung</label>
-                                               <select class='form-control select2' style='width: 100%;' name=id_pengunjung>
+                                               <select class='form-control select2' style='width: 100%;' name=id_konsumen>
                                                <option value='' selected>Pilih Pengujung</option>"; 
-                                                $sql=mysqli_query($koneksi,"SELECT * FROM pengunjung ORDER BY id_pengunjung");
+                                                $sql=mysqli_query($koneksi,"SELECT * FROM konsumen ORDER BY id_konsumen");
                                                 while ($c=mysqli_fetch_array($sql))
                                                 {
-                                                   echo "<option value=$c[id_pengunjung]>$c[nama_pengunjung]</option>";
+                                                   echo "<option value=$c[id_konsumen]>$c[nama_konsumen]</option>";
                                                 }
                                                    echo "
                                                </select><br><br>
                                                 
-                                               <label>Jumlah Anak-Anak</label>
-											   <input type='text' class='form-control' name='anak' required/><br>
+                                               <label>Jumlah Isibaru</label>
+											   <input type='text' class='form-control' name='isibaru' required/><br>
 											   <label>Jumlah Dewasa</label>
-											   <input type='text' class='form-control' name='dewasa' required/><br>
+											   <input type='text' class='form-control' name='isiulang' required/><br>
                                                 <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                                                 <button type='submit' class='btn btn-primary'>Save </button>
                                             </div>
@@ -583,15 +583,15 @@ elseif($_GET['aksi']=='editkonfirmasi'){
 /////////////////////////////////////////////////////////////////////////////////////////////////
     
 elseif($_GET['aksi']=='detailbooking'){
-    $sql=mysqli_query($koneksi," SELECT * FROM booking,pengunjung,tiket WHERE booking.id_pengunjung=pengunjung.id_pengunjung AND booking.id_tiket=tiket.id_tiket AND booking.id_booking=$_GET[id_booking]");
+    $sql=mysqli_query($koneksi," SELECT * FROM booking,konsumen,produk WHERE booking.id_konsumen=konsumen.id_konsumen AND booking.id_produk=produk.id_produk AND booking.id_booking=$_GET[id_booking]");
     $t=mysqli_fetch_array($sql);
-	$harga_format = number_format($t[harga_tiket], 0, ',', '.');
-	$anak =$t[harga_tiket1]*$t[anak];
-	$dewasa =$t[harga_tiket]*$t[dewasa];
-	$jml =$t[anak]+$t[dewasa];
-	$total=$anak+$dewasa;
-	$anak_rp = number_format($anak, 0, ',', '.');
-	$dewasa_rp = number_format($dewasa, 0, ',', '.');
+	$harga_format = number_format($t[harga_produk], 0, ',', '.');
+	$isibaru =$t[harga_produk1]*$t[isibaru];
+	$isiulang =$t[harga_produk]*$t[isiulang];
+	$jml =$t[isibaru]+$t[isiulang];
+	$total=$isibaru+$isiulang;
+	$isibaru_rp = number_format($isibaru, 0, ',', '.');
+	$isiulang_rp = number_format($isiulang, 0, ',', '.');
 	$total_rp = number_format($total, 0, ',', '.');	
 
 // abil data QR Code
@@ -631,10 +631,10 @@ echo"
   <div class='col-sm-4 invoice-col'>
 	Pemesan
 	<address>
-	  <strong>$t[nama_pengunjung]</strong><br>
+	  <strong>$t[nama_konsumen]</strong><br>
 	  $t[alamat]<br>
 	  Phone: $t[no_hp]<br>
-	  Email: $t[email_pengunjung]
+	  Email: $t[email_konsumen]
 	</address>
   </div><!-- /.col -->
  
@@ -645,17 +645,17 @@ echo"
 	<table class='table table-striped'>
 	  <thead>
 		<tr>
-		  <th>Tiket</th>
-		  <th>dewasa</th>
-		  <th>Anak-Anak</th>
+		  <th>Produk</th>
+		  <th>isiulang</th>
+		  <th>Isibaru</th>
 		  <th>Subtotal</th>
 		</tr>
 	  </thead>
 	  <tbody>
 		<tr>
-		  <td>$t[nama_tiket]</td>
-		  <td>$t[dewasa]</td>
-		  <td>$t[anak]</td>
+		  <td>$t[nama_produk]</td>
+		  <td>$t[isiulang]</td>
+		  <td>$t[isibaru]</td>
 		  <td>$total_rp</td>
 		</tr>
 	  </tbody>
@@ -688,15 +688,15 @@ echo"
 	<div class='table-responsive'>
 	  <table class='table'>
 		<tr>
-		  <th style='width:50%'>total tiket anak:</th>
-		  <td>Rp. $anak_rp </td>
+		  <th style='width:50%'>total produk isibaru:</th>
+		  <td>Rp. $isibaru_rp </td>
 		</tr>
 		<tr>
-		  <th>total tiket dewasa</th>
-		  <td>Rp. $dewasa_rp</td>
+		  <th>total produk isiulang</th>
+		  <td>Rp. $isiulang_rp</td>
 		</tr>
 		<tr>
-		  <th>Jumlah Tiket</th>
+		  <th>Jumlah Produk</th>
 		  <td>$jml</td>
 		</tr>
 		<tr>
@@ -2274,7 +2274,7 @@ elseif($_GET['aksi']=='tunjangan'){
             <button class='btn btn-info' data-toggle='modal' data-target='#uiModal'>
                                Data Istri/Suami
                             </button>  <button class='btn btn-info' data-toggle='modal' data-target='#uiModal1'>
-                            Tambah Data Anak
+                            Tambah Data Isibaru
                         </button>  <br><br>
           
                    <div class='table-responsive'>		
@@ -2312,7 +2312,7 @@ $no++;
             <span class='caret'></span>
             <span class='sr-only'>Toggle Dropdown</span>
           </button>
-          <ul class='dropdown-menu' role='menu'>"; if($t['status_aktif']=='anak'){ echo"<li><a href='index.php?aksi=editkeluargaanak&id_keluarga=$t[id_keluarga]' title='Edit'><i class='fa fa-pencil'></i>Lihat</a></li>"; }
+          <ul class='dropdown-menu' role='menu'>"; if($t['status_aktif']=='isibaru'){ echo"<li><a href='index.php?aksi=editkeluargaisibaru&id_keluarga=$t[id_keluarga]' title='Edit'><i class='fa fa-pencil'></i>Lihat</a></li>"; }
             else { echo"<li><a href='index.php?aksi=editkeluarga&id_keluarga=$t[id_keluarga]' title='Edit'><i class='fa fa-pencil'></i>Lihat</a></li>";  }
             echo" <li><a href='hapus.php?aksi=hapuskeluarga&id_keluarga=$t[id_keluarga]&id_pegawai=$_GET[id_pegawai]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_keluarga] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
             </ul>
@@ -2406,7 +2406,7 @@ echo"
                                             <div class='form-group'>
                          <label>Nama Anak</label>
                          <input type='hidden' class='form-control' value='$_GET[id_pegawai]' name='id_pegawai'/>
-                         <input type='hidden' class='form-control' value='anak' name='status_aktif'/>                    
+                         <input type='hidden' class='form-control' value='isibaru' name='status_aktif'/>                    
 						 <input type='text' class='form-control' name='nama_keluarga'/><br>
                          <label>Jenis Kelamin</label>
 	                    <select class='form-control select2' style='width: 100%;' name=jk_keluarga>
@@ -2439,9 +2439,9 @@ echo"
                          <label>Status Anak</label>
 	                    <select class='form-control select2' style='width: 100%;' name=status_keluarga>
 		                <option value='-' selected>Pilih Status Anak</option>
-		                <option value=anak>anak</option>
-                        <option value=anakangkat>anak angkat</option>
-                        <option value=anaktiri>anak tiri</option>
+		                <option value=isibaru>isibaru</option>
+                        <option value=isibaruangkat>isibaru angkat</option>
+                        <option value=isibarutiri>isibaru tiri</option>
                         </select><br><br>
 
                         <label>Status Pendidikan Anak</label>
@@ -2467,7 +2467,7 @@ echo"
 						 <input type='text' class='form-control' name='pendidikan_keluarga'/>
 					    </br>
                         <label>Status Anak Angkat</label>
-	                    <select class='form-control select2' style='width: 100%;' name=anak_angkat_status>
+	                    <select class='form-control select2' style='width: 100%;' name=isibaru_angkat_status>
 		                <option value='' selected>Pilih Status Anak Angkat</option>		    
                         <option value=negeri>Putusan Pengadilan Negeri</option>
 		                <option value=tionghoa>Hukum adopsi bagi keturunan tionghoa</option>
@@ -2520,8 +2520,8 @@ elseif($_GET['aksi']=='editkeluarga'){
                             <option value='$t[status_keluarga]' selected>$t[status_keluarga]</option>
                             <option value=istri>Istri</option>
                             <option value=suami>suami</option>
-                            <option value=anak>anak</option>
-                            <option value=anak angkat>anak angkat</option>
+                            <option value=isibaru>isibaru</option>
+                            <option value=isibaru angkat>isibaru angkat</option>
                             </select><br>
                             <label>Status Tunjangan</label>
                             <select class='form-control select2' style='width: 100%;' name=tunjang_status>
@@ -2554,7 +2554,7 @@ elseif($_GET['aksi']=='editkeluarga'){
         </div>	
     "; 	
 }
-elseif($_GET['aksi']=='editkeluargaanak'){
+elseif($_GET['aksi']=='editkeluargaisibaru'){
     $tebaru=mysqli_query($koneksi," SELECT * FROM keluarga WHERE id_keluarga=$_GET[id_keluarga] ");
     $t=mysqli_fetch_array($tebaru);
     echo"
@@ -2564,11 +2564,11 @@ elseif($_GET['aksi']=='editkeluargaanak'){
                             <div class='panel-heading'>ANAK $t[nama_keluarga]
                             </div>
                             <div class='panel-body'>			
-                            <form role='form' method='post' action='edit.php?aksi=prosesedianak&id_keluarga=$t[id_keluarga]'>
+                            <form role='form' method='post' action='edit.php?aksi=prosesediisibaru&id_keluarga=$t[id_keluarga]'>
                             <div class='form-group'>
          <label>Nama Anak</label>
          <input type='hidden' class='form-control' value='$t[id_pegawai]' name='id_pegawai'/>
-         <input type='hidden' class='form-control' value='anak' name='status_aktif'/>                    
+         <input type='hidden' class='form-control' value='isibaru' name='status_aktif'/>                    
          <input type='text' class='form-control' value='$t[nama_keluarga]' name='nama_keluarga'/><br>
          <label>Jenis Kelamin</label>
         <select class='form-control select2' style='width: 100%;' name=jk_keluarga>
@@ -2601,9 +2601,9 @@ elseif($_GET['aksi']=='editkeluargaanak'){
          <label>Status Anak</label>
         <select class='form-control select2' style='width: 100%;' name=status_keluarga>
         <option value='$t[status_keluarga]' selected>$t[status_keluarga]</option>
-        <option value=anak>anak</option>
-        <option value=anakangkat>anak angkat</option>
-        <option value=anaktiri>anak tiri</option>
+        <option value=isibaru>isibaru</option>
+        <option value=isibaruangkat>isibaru angkat</option>
+        <option value=isibarutiri>isibaru tiri</option>
         </select><br><br>
 
         <label>Status Pendidikan Anak</label>
@@ -2629,8 +2629,8 @@ elseif($_GET['aksi']=='editkeluargaanak'){
          <input type='text' value='$t[pendidikan_keluarga]' class='form-control' name='pendidikan_keluarga'/>
         </br>
         <label>Status Anak Angkat</label>
-        <select class='form-control select2' style='width: 100%;' name=anak_angkat_status>
-        <option value='$t[anak_angkat_status]' selected>$t[anak_angkat_status]</option>		    
+        <select class='form-control select2' style='width: 100%;' name=isibaru_angkat_status>
+        <option value='$t[isibaru_angkat_status]' selected>$t[isibaru_angkat_status]</option>		    
         <option value=negeri>Putusan Pengadilan Negeri</option>
         <option value=tionghoa>Hukum adopsi bagi keturunan tionghoa</option>
         </select><br><br>
@@ -2708,7 +2708,7 @@ $no++;
                             <td>$t[nama_pegawai]</td>
                 <td>$t[t_status]</td>
                 <td><a class='btn btn-primary' href='cetaksk.php?id_pegawai=$t[id_pegawai]' target='_blank'>Cetak SK</a> 
-                <a class='btn btn-primary' href='cetakskanak.php?id_pegawai=$t[id_pegawai]' target='_blank'>Cetak Daftar Anak</a></td>
+                <a class='btn btn-primary' href='cetakskisibaru.php?id_pegawai=$t[id_pegawai]' target='_blank'>Cetak Daftar Anak</a></td>
                 <td><a class='btn btn-danger' href='hapus.php?aksi=hapustunjangan&id_tunjangan=$t[id_tunjangan]&id_pegawai=$t[id_pegawai]' onclick=\"return confirm ('Apakah yakin ingin menghapus data ini ?')\" >Hapus</a> </td>
                             </tr>";
 }

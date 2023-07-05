@@ -6,16 +6,16 @@
     header("location:../login.php?alert=belum_login");
   }
 ///////////////////////////lihat/////////////////////////////////////////////
-if($_GET['aksi']=='inputtiket'){
+if($_GET['aksi']=='inputproduk'){
 // Memeriksa apakah input kosong
-if (empty($_POST[nama_tiket]) || empty($_POST[harga_tiket]) || empty($_POST[keterangan])) {
+if (empty($_POST[nama_produk]) || empty($_POST[harga_produk]) || empty($_POST[keterangan])) {
 	echo "<script>window.alert('Data yang Anda isikan belum lengkap');
-	window.location=('index.php?aksi=tiket')</script>";
+	window.location=('index.php?aksi=produk')</script>";
 	exit();
 }	
-mysqli_query($koneksi,"insert into tiket (nama_tiket,harga_tiket,keterangan) 
-values ('$_POST[nama_tiket]','$_POST[harga_tiket]','$_POST[keterangan]')");  
-echo "<script>window.location=('index.php?aksi=tiket')</script>";
+mysqli_query($koneksi,"insert into produk (nama_produk,harga_produk,harga_produk1,keterangan) 
+values ('$_POST[nama_produk]','$_POST[harga_produk]','$_POST[harga_produk1]','$_POST[keterangan]')");  
+echo "<script>window.location=('index.php?aksi=produk')</script>";
 }
 elseif($_GET['aksi']=='inputpembayaran'){
 mysqli_query($koneksi,"insert into pembayaran (metode_bayar,nomor_bayar,atas_nama) 
@@ -23,27 +23,27 @@ values ('$_POST[metode_bayar]','$_POST[nomor_bayar]','$_POST[atas_nama]')");
 echo "<script>window.location=('index.php?aksi=pembayaran')</script>";
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-elseif($_GET['aksi']=='inputpengunjung'){
+elseif($_GET['aksi']=='inputkonsumen'){
 	// Memeriksa apakah input kosong
-	if (empty($_POST[nama_pengunjung]) || empty($_POST[no_hp]) || empty($_POST[email_pengunjung])|| empty($_POST[alamat])) {
+	if (empty($_POST[nama_konsumen]) || empty($_POST[no_hp]) || empty($_POST[email_konsumen])|| empty($_POST[alamat])) {
 		echo "<script>window.alert('Data yang Anda isikan belum lengkap');
-		window.location=('index.php?aksi=pengunjung')</script>";
+		window.location=('index.php?aksi=konsumen')</script>";
 		exit();
 	}	
-	mysqli_query($koneksi,"insert into pengunjung (nama_pengunjung,kode_booking,no_hp,email_pengunjung,alamat) 
-	values ('$_POST[nama_pengunjung]','$_POST[no_hp]','$_POST[email_pengunjung]','$_POST[alamat]')");  
-	echo "<script>window.location=('index.php?aksi=pengunjung')</script>";
+	mysqli_query($koneksi,"insert into konsumen (nama_konsumen,kode_booking,no_hp,email_konsumen,alamat) 
+	values ('$_POST[nama_konsumen]','$_POST[no_hp]','$_POST[email_konsumen]','$_POST[alamat]')");  
+	echo "<script>window.location=('index.php?aksi=konsumen')</script>";
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 elseif($_GET['aksi']=='inputbooking'){
 	// Memeriksa apakah input kosong
-	if (empty($_POST[id_pengunjung]) || empty($_POST[id_tiket])) {
+	if (empty($_POST[id_konsumen]) || empty($_POST[id_produk])) {
 		echo "<script>window.alert('Data yang Anda isikan belum lengkap');
 		window.location=('index.php?aksi=booking')</script>";
 		exit();
 	}	
-	mysqli_query($koneksi,"insert into booking (id_pengunjung,kode_booking,id_tiket,dewas,anak) 
-	values ('$_POST[id_pengunjung]','$_POST[kode_booking]','$_POST[id_tiket]','$_POST[dewasa]','$_POST[anak]')");  
+	mysqli_query($koneksi,"insert into booking (id_konsumen,kode_booking,id_produk,dewas,anak) 
+	values ('$_POST[id_konsumen]','$_POST[kode_booking]','$_POST[id_produk]','$_POST[dewasa]','$_POST[anak]')");  
 	echo "<script>window.location=('index.php?aksi=booking')</script>";
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////

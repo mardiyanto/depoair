@@ -6,10 +6,10 @@
     header("location:../login.php?alert=belum_login");
   }
 ///////////////////////////lihat/////////////////////////////////////////////
-if($_GET['aksi']=='prosesedittiket'){
-mysqli_query($koneksi,"UPDATE tiket SET nama_tiket='$_POST[nama_tiket]',harga_tiket='$_POST[harga_tiket]',keterangan='$_POST[keterangan]' WHERE id_tiket='$_GET[id_tiket]'");
+if($_GET['aksi']=='proseseditproduk'){
+mysqli_query($koneksi,"UPDATE produk SET nama_produk='$_POST[nama_produk]',harga_produk1='$_POST[harga_produk1]',harga_produk='$_POST[harga_produk]',keterangan='$_POST[keterangan]' WHERE id_produk='$_GET[id_produk]'");
 echo "<script>window.alert('Data Berhasil di edit dan disimpan');
-window.location=('index.php?aksi=tiket')</script>";
+window.location=('index.php?aksi=produk')</script>";
 }
 elseif($_GET['aksi']=='proseseditpembayaran'){
 	mysqli_query($koneksi,"UPDATE pembayaran SET metode_bayar='$_POST[metode_bayar]',nomor_bayar='$_POST[nomor_bayar]',atas_nama='$_POST[atas_nama]' WHERE id_bayar='$_GET[id_bayar]'");
@@ -17,10 +17,10 @@ elseif($_GET['aksi']=='proseseditpembayaran'){
 	window.location=('index.php?aksi=pembayaran')</script>";
 	}
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-elseif($_GET['aksi']=='proseseditpengunjung'){
-	mysqli_query($koneksi,"UPDATE pengunjung SET nama_pengunjung='$_POST[nama_pengunjung]',email_pengunjung='$_POST[email_pengunjung]',no_hp='$_POST[no_hp]',alamat='$_POST[alamat]' WHERE id_pengunjung='$_GET[id_pengunjung]'");
+elseif($_GET['aksi']=='proseseditkonsumen'){
+	mysqli_query($koneksi,"UPDATE konsumen SET nama_konsumen='$_POST[nama_konsumen]',email_konsumen='$_POST[email_konsumen]',no_hp='$_POST[no_hp]',alamat='$_POST[alamat]' WHERE id_konsumen='$_GET[id_konsumen]'");
 	echo "<script>window.alert('Data Berhasil di edit dan disimpan');
-	window.location=('index.php?aksi=pengunjung')</script>";
+	window.location=('index.php?aksi=konsumen')</script>";
 }
 elseif($_GET['aksi']=='proseseditkonfirmasi'){
 	mysqli_query($koneksi,"UPDATE konfirmasi SET status_bayar='lunas' WHERE id_konfirmasi='$_GET[id_konfirmasi]'");

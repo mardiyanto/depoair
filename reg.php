@@ -1,7 +1,7 @@
 <?php 
  if($_GET['aksi']=='home'){ ?>
 <section class="content">
-          <h2 class="page-header">Harga Peket Wisata dan Register <?php echo"$k_k[nama]";?></h2>
+          <h2 class="page-header">Harga <?php echo"$k_k[nama]";?></h2>
           <div class="row">
             <div class="col-md-6">
               <div class="box box-solid">
@@ -15,13 +15,13 @@
                       <div class="box-header with-border">
                         <h4 class="box-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="#collapstree">
-                           harga tiket untuk masuk 
+                           harga <?php echo"$k_k[nama]";?> 
                           </a>
                         </h4>
                       </div>
                       <div id="collapstree" class="panel-collapse collapse in">
                         <div class="box-body">
-                          Harga Tiket masuk Kami adalah untuk dewasa Rp.10.000 dan Untuk Anak-Anak Rp.5.000
+                          Harga <?php echo"$k_k[nama]";?> adalah untuk isi ulang Rp.6.000 
                         </div>
                       </div>
                     </div>
@@ -33,7 +33,7 @@
             <div class="col-md-6">
               <div class="box box-solid">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Isikan Data Anda untuk Booking</h3>
+                  <h3 class="box-title">Isikan Data Anda untuk Booking isi ulang <?php echo"$k_k[nama]";?></h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
 				<div class="box-group" id="accordion">
@@ -48,13 +48,13 @@
                       </div>
                       <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="box-body">
-						<form action="booking.php?aksi=inputpengunjung" method="post">
+						<form action="booking.php?aksi=inputkonsumen" method="post">
 				<label>Nama</label>
-                                                    <input type='text' class='form-control' name='nama_pengunjung'/><br>
+                                                    <input type='text' class='form-control' name='nama_konsumen'/><br>
                                                     <label>No Hp</label>
                                                     <input type='text' class='form-control' name='no_hp'/><br>
                                                     <label>Email</label>
-                                                    <input type='email' class='form-control' name='email_pengunjung'/><br>
+                                                    <input type='email' class='form-control' name='email_konsumen'/><br>
                                                     <label>Alamat Lengkap</label>
                                                     <input type='text' class='form-control' name='alamat'/><br>
                                                     <button type='submit' class='btn btn-primary'>SIMPAN </button>
@@ -76,7 +76,7 @@
                                                     <label>No Hp</label>
                                                     <input type='text' class='form-control' name='no_hp'/><br>
                                                     <label>Email</label>
-                                                    <input type='email' class='form-control' name='email_pengunjung'/><br>
+                                                    <input type='email' class='form-control' name='email_konsumen'/><br>
                                                     <button type='submit' class='btn btn-primary'>login </button>
                         </form>
 					   </div>
@@ -94,32 +94,32 @@
           <!-- END ACCORDION & CAROUSEL-->
           </section><!-- /.content -->
 <?php } 
- elseif ($_GET['aksi'] == 'inputpengunjung') {
+ elseif ($_GET['aksi'] == 'inputkonsumen') {
     // Memeriksa apakah input kosong
-    if (empty($_POST['nama_pengunjung']) || empty($_POST['no_hp']) || empty($_POST['email_pengunjung']) || empty($_POST['alamat'])) {
+    if (empty($_POST['nama_konsumen']) || empty($_POST['no_hp']) || empty($_POST['email_konsumen']) || empty($_POST['alamat'])) {
         echo "<script>window.alert('Data yang Anda isikan belum lengkap');
         window.location=('booking.php?aksi=home')</script>";
         exit();
     }
     
-    $nama_pengunjung = $_POST['nama_pengunjung'];
+    $nama_konsumen = $_POST['nama_konsumen'];
     $no_hp = $_POST['no_hp'];
-    $email_pengunjung = $_POST['email_pengunjung'];
+    $email_konsumen = $_POST['email_konsumen'];
     $alamat = $_POST['alamat'];
     
-    mysqli_query($koneksi, "INSERT INTO pengunjung (nama_pengunjung, no_hp, email_pengunjung, alamat) 
-    VALUES ('$nama_pengunjung', '$no_hp', '$email_pengunjung', '$alamat')");  
+    mysqli_query($koneksi, "INSERT INTO konsumen (nama_konsumen, no_hp, email_konsumen, alamat) 
+    VALUES ('$nama_konsumen', '$no_hp', '$email_konsumen', '$alamat')");  
     
-    $login = mysqli_query($koneksi, "SELECT * FROM pengunjung WHERE email_pengunjung='$email_pengunjung'");
+    $login = mysqli_query($koneksi, "SELECT * FROM konsumen WHERE email_konsumen='$email_konsumen'");
     $cek = mysqli_num_rows($login);
 
     if ($cek > 0) {
         session_start();
         $data = mysqli_fetch_assoc($login);
-        $_SESSION['id'] = $data['id_pengunjung'];
-        $_SESSION['nama'] = $data['nama_pengunjung'];
+        $_SESSION['id'] = $data['id_konsumen'];
+        $_SESSION['nama'] = $data['nama_konsumen'];
         $_SESSION['hp'] = $data['no_hp'];
-        $_SESSION['email'] = $data['email_pengunjung'];
+        $_SESSION['email'] = $data['email_konsumen'];
         echo "<script>window.alert('Input data sukses dan login');
         window.location=('booking.php?aksi=booking')</script>";
     } else {
@@ -129,21 +129,21 @@
 }
 elseif ($_GET['aksi'] == 'login') {
     // Memeriksa apakah data kosong
-    $nama_pengunjung = $_POST['nama_pengunjung'];
+    $nama_konsumen = $_POST['nama_konsumen'];
     $no_hp = $_POST['no_hp'];
-    $email_pengunjung = $_POST['email_pengunjung'];
+    $email_konsumen = $_POST['email_konsumen'];
     $alamat = $_POST['alamat'];
     
-    $login = mysqli_query($koneksi, "SELECT * FROM pengunjung WHERE email_pengunjung='$email_pengunjung' and no_hp = '$no_hp'");
+    $login = mysqli_query($koneksi, "SELECT * FROM konsumen WHERE email_konsumen='$email_konsumen' and no_hp = '$no_hp'");
     $cek = mysqli_num_rows($login);
 
     if ($cek > 0) {
         session_start();
         $data = mysqli_fetch_assoc($login);
-        $_SESSION['id'] = $data['id_pengunjung'];
-        $_SESSION['nama'] = $data['nama_pengunjung'];
+        $_SESSION['id'] = $data['id_konsumen'];
+        $_SESSION['nama'] = $data['nama_konsumen'];
         $_SESSION['hp'] = $data['no_hp'];
-        $_SESSION['email'] = $data['email_pengunjung'];
+        $_SESSION['email'] = $data['email_konsumen'];
         echo "<script>window.alert('sukses login');
         window.location=('booking.php?aksi=booking')</script>";
     } else {
@@ -182,22 +182,22 @@ echo"
                                                <input type='text' class='form-control' value='$bookingCode'  disabled/>
                                                <input type='hidden' class='form-control' value='$bookingCode' name='kode_booking'>
                                                <div class='form-group'>
-                                               <label>Pilih Tiket</label>
-                                               <select class='form-control select2' style='width: 100%;' name=id_tiket>
-                                               <option value='' selected>Pilih Tiket</option>"; 
-                                                $sql=mysqli_query($koneksi,"SELECT * FROM tiket ORDER BY id_tiket");
+                                               <label>Pilih Produk</label>
+                                               <select class='form-control select2' style='width: 100%;' name=id_produk>
+                                               <option value='' selected>Pilih Produk</option>"; 
+                                                $sql=mysqli_query($koneksi,"SELECT * FROM produk ORDER BY id_produk");
                                                 while ($c=mysqli_fetch_array($sql))
                                                 {
-                                                   echo "<option value=$c[id_tiket]>$c[nama_tiket]</option>";
+                                                   echo "<option value=$c[id_produk]>$c[nama_produk]</option>";
                                                 }
                                                    echo "
                                                </select><br>
 											   <label>Jumlah Anak-Anak</label>
-											   <input type='text' class='form-control' name='anak' required/><br>
+											   <input type='text' class='form-control' name='isibaru' required/><br>
 											   <label>Jumlah Dewasa</label>
-											   <input type='text' class='form-control' name='dewasa' required/><br>
+											   <input type='text' class='form-control' name='isiulang' required/><br>
                             
-												<input type='hidden' class='form-control' value='$_SESSION[id]' name='id_pengunjung'/><br>
+												<input type='hidden' class='form-control' value='$_SESSION[id]' name='id_konsumen'/><br>
                                                 <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                                                 <button type='submit' class='btn btn-primary'>Save </button>
                                             </div>
@@ -213,26 +213,26 @@ echo"
 }
 elseif($_GET['aksi']=='inputbooking'){
 	// Memeriksa apakah input kosong
-	if (empty($_POST[id_pengunjung]) || empty($_POST[id_tiket])) {
+	if (empty($_POST[id_konsumen]) || empty($_POST[id_produk])) {
 		echo "<script>window.alert('Data yang Anda isikan belum lengkap');
 		window.location=('booking.php?aksi=booking')</script>";
 		exit();
 	}	
-	mysqli_query($koneksi,"insert into booking (id_pengunjung,kode_booking,id_tiket,anak,dewasa,status) 
-	values ('$_POST[id_pengunjung]','$_POST[kode_booking]','$_POST[id_tiket]','$_POST[anak]','$_POST[dewasa]','unpaid')");  
+	mysqli_query($koneksi,"insert into booking (id_konsumen,kode_booking,id_produk,isibaru,isiulang,status) 
+	values ('$_POST[id_konsumen]','$_POST[kode_booking]','$_POST[id_produk]','$_POST[isibaru]','$_POST[isiulang]','unpaid')");  
 	echo "<script>window.location=('booking.php?aksi=detailbooking&kode_booking=$_POST[kode_booking]')</script>";
 }
 
 elseif($_GET['aksi']=='detailbooking'){
-$sql=mysqli_query($koneksi," SELECT * FROM booking,pengunjung,tiket WHERE booking.id_pengunjung=pengunjung.id_pengunjung AND booking.id_tiket=tiket.id_tiket AND booking.kode_booking=$_GET[kode_booking]");
+$sql=mysqli_query($koneksi," SELECT * FROM booking,konsumen,produk WHERE booking.id_konsumen=konsumen.id_konsumen AND booking.id_produk=produk.id_produk AND booking.kode_booking=$_GET[kode_booking]");
 $t=mysqli_fetch_array($sql);
-$harga_format = number_format($t[harga_tiket], 0, ',', '.');
-$anak =$t[harga_tiket1]*$t[anak];
-$dewasa =$t[harga_tiket]*$t[dewasa];
-$jml =$t[anak]+$t[dewasa];
-$total=$anak+$dewasa;
-$anak_rp = number_format($anak, 0, ',', '.');
-$dewasa_rp = number_format($dewasa, 0, ',', '.');
+$harga_format = number_format($t[harga_produk], 0, ',', '.');
+$isibaru =$t[harga_produk1]*$t[isibaru];
+$isiulang =$t[harga_produk]*$t[isiulang];
+$jml =$t[isibaru]+$t[isiulang];
+$total=$isibaru+$isiulang;
+$isibaru_rp = number_format($isibaru, 0, ',', '.');
+$isiulang_rp = number_format($isiulang, 0, ',', '.');
 $total_rp = number_format($total, 0, ',', '.');
 
 // abil data QR Code
@@ -287,17 +287,17 @@ echo"
 	<table class='table table-striped'>
 	  <thead>
 		<tr>
-		  <th>Tiket</th>
-		  <th>dewasa</th>
-		  <th>Anak-Anak</th>
+		  <th>Produk</th>
+		  <th>isiulang</th>
+		  <th>Galon Baru</th>
 		  <th>Subtotal</th>
 		</tr>
 	  </thead>
 	  <tbody>
 		<tr>
-		  <td>$t[nama_tiket]</td>
-		  <td>$t[dewasa]</td>
-		  <td>$t[anak]</td>
+		  <td>$t[nama_produk]</td>
+		  <td>$t[isiulang]</td>
+		  <td>$t[isibaru]</td>
 		  <td>$total_rp</td>
 		</tr>
 	  </tbody>
@@ -313,7 +313,7 @@ echo"
 	<img src='sys/bootstrap/dist/img/credit/dana.png' alt='Mastercard'>
 
 	<p class='text-muted well well-sm no-shadow' style='margin-top: 10px;'>
-	  silahakn melakukn pembayaran di rekening bank atau akun dana kami, untuk mendapatakan barcode chackin masuk tempat wisata
+	  silahakn melakukn pembayaran di rekening bank atau akun dana kami, untuk pengantaran 
 ";
 
 	  $sql=mysqli_query($koneksi,"SELECT * FROM pembayaran ORDER BY id_bayar");
@@ -337,25 +337,25 @@ echo"
 	if($t[status]=='unpaid'){
 		echo"<a href='booking.php?aksi=konfirmasi&kode_booking=$t[kode_booking]' class='btn btn-primary'>KONFIRMASI PEMBAYARAN </a>";
 	} else {
-		echo"<a href='booking.php?aksi=tiket' class='btn btn-primary'>SUDAH DI BAYAR </a>";
+		echo"<a href='booking.php?aksi=produk' class='btn btn-primary'>SUDAH DI BAYAR </a>";
 	}
 	echo"
-	<a href='booking.php?aksi=tiket' class='btn btn-primary'>Kembali </a>
+	<a href='booking.php?aksi=produk' class='btn btn-primary'>Kembali </a>
   </div><!-- /.col -->
   <div class='col-xs-6'>
 	<p class='lead'>STATUS BAYAR: $t[status]</p>
 	<div class='table-responsive'>
 	  <table class='table'>
 		<tr>
-		  <th style='width:50%'>total tiket anak:</th>
-		  <td>Rp. $anak_rp </td>
+		  <th style='width:50%'>total produk isibaru:</th>
+		  <td>Rp. $isibaru_rp </td>
 		</tr>
 		<tr>
-		  <th>total tiket dewasa</th>
-		  <td>Rp. $dewasa_rp</td>
+		  <th>total produk isiulang</th>
+		  <td>Rp. $isiulang_rp</td>
 		</tr>
 		<tr>
-		  <th>Jumlah Tiket</th>
+		  <th>Jumlah Produk</th>
 		  <td>$jml</td>
 		</tr>
 		<tr>
@@ -375,20 +375,20 @@ echo"
 </section>
 ";
 }
-elseif($_GET['aksi']=='tiket'){
+elseif($_GET['aksi']=='produk'){
 	echo"<div class='row'>
                     <div class='col-lg-12'>
                         <div class='panel panel-default'>
                             <div class='panel-heading'>INFORMASI 
                             </div>
                             <div class='panel-body'>	
-               <a href='booking.php?aksi=booking'  class='btn btn-info' >PESAN TIKET LAGI</span></a></br></br>
+               <a href='booking.php?aksi=booking'  class='btn btn-info' >PESAN LAGI</span></a></br></br>
                                    <div class='table-responsive'>		
          <table id='example1' class='table table-bordered table-striped'>
                                         <thead>
                                             <tr> <th>No</th>
                                                 <th>Nama Pengunjung</th>
-                                                <th>Nama Tiket</th>	 
+                                                <th>Nama Produk</th>	 
 												<th>Status Bayar</th>	
                                                 <th>AKSI</th>	
                                             </tr>
@@ -396,13 +396,13 @@ elseif($_GET['aksi']=='tiket'){
                         ";
                 
     $no=0;
-    $sql=mysqli_query($koneksi," SELECT * FROM booking,pengunjung,tiket WHERE booking.id_pengunjung=pengunjung.id_pengunjung AND booking.id_tiket=tiket.id_tiket AND pengunjung.id_pengunjung='$_SESSION[id]' ORDER BY booking.id_booking ASC");
+    $sql=mysqli_query($koneksi," SELECT * FROM booking,konsumen,produk WHERE booking.id_konsumen=konsumen.id_konsumen AND booking.id_produk=produk.id_produk AND konsumen.id_konsumen='$_SESSION[id]' ORDER BY booking.id_booking ASC");
     while ($t=mysqli_fetch_array($sql)){	
     $no++;
                                         echo"
                                             <tr><td>$no</td>
-                                                <td>$t[nama_pengunjung]</td>
-                                                <td>$t[nama_tiket]</td> 
+                                                <td>$t[nama_konsumen]</td>
+                                                <td>$t[nama_produk]</td> 
 												<td><button type='button' class='btn btn-danger'>$t[status]</button></td> 
                                 <td><a class='btn btn-info' href='booking.php?aksi=detailbooking&kode_booking=$t[kode_booking]'><i class='fa fa-eye'></i>lihat</a></td>
                                             </tr>";
@@ -416,19 +416,19 @@ elseif($_GET['aksi']=='tiket'){
                    </div>";			
 }
 elseif($_GET['aksi']=='konfirmasi'){
-	$sql=mysqli_query($koneksi," SELECT * FROM booking,pengunjung,tiket WHERE booking.id_pengunjung=pengunjung.id_pengunjung AND booking.id_tiket=tiket.id_tiket AND booking.kode_booking=$_GET[kode_booking]");
+	$sql=mysqli_query($koneksi," SELECT * FROM booking,konsumen,produk WHERE booking.id_konsumen=konsumen.id_konsumen AND booking.id_produk=produk.id_produk AND booking.kode_booking=$_GET[kode_booking]");
 	$t=mysqli_fetch_array($sql);
-	$harga_format = number_format($t[harga_tiket], 0, ',', '.');
-	$anak =$t[harga_tiket1]*$t[anak];
-	$dewasa =$t[harga_tiket]*$t[dewasa];
-	$jml =$t[anak]+$t[dewasa];
-	$total=$anak+$dewasa;
-	$anak_rp = number_format($anak, 0, ',', '.');
-	$dewasa_rp = number_format($dewasa, 0, ',', '.');
+	$harga_format = number_format($t[harga_produk], 0, ',', '.');
+	$isibaru =$t[harga_produk1]*$t[isibaru];
+	$isiulang =$t[harga_produk]*$t[isiulang];
+	$jml =$t[isibaru]+$t[isiulang];
+	$total=$isibaru+$isiulang;
+	$isibaru_rp = number_format($isibaru, 0, ',', '.');
+	$isiulang_rp = number_format($isiulang, 0, ',', '.');
 	$total_rp = number_format($total, 0, ',', '.');	
 	echo"
 	<section class='content'>
-	<h2 class='page-header'>PILIH PAKET WISATA</h2>
+	<h2 class='page-header'>PILIH</h2>
 			   <div class='row'>
 					<div class='col-lg-12'>
 						   
@@ -446,7 +446,7 @@ elseif($_GET['aksi']=='konfirmasi'){
 												   <div class='form-group'>
 												   <label>Pilih Meto Pembayaran</label>
 												   <select class='form-control select2' style='width: 100%;' name=id_bayar>
-												   <option value='' selected>Pilih Tiket</option>"; 
+												   <option value='' selected>Pilih Produk</option>"; 
 													$sql=mysqli_query($koneksi,"SELECT * FROM pembayaran ORDER BY id_bayar");
 													while ($c=mysqli_fetch_array($sql))
 													{
@@ -456,7 +456,7 @@ elseif($_GET['aksi']=='konfirmasi'){
 												   </select><br>
 												   <label>Bukti Bayar</label>
 												   <input type='file' class='form-control' name='bukti' required/><br>
-													<a href='booking.php?aksi=tiket' class='btn btn-default'>Kembali</a>
+													<a href='booking.php?aksi=produk' class='btn btn-default'>Kembali</a>
 													<button type='submit' class='btn btn-primary' name='submit'>Save </button>
 												</div>
 												</form>
@@ -500,7 +500,7 @@ elseif($_GET['aksi']=='inputkonfirmasi'){
 			
 	
 			echo "<script>window.alert('Data bersharil di simpan');
-		window.location=('booking.php?aksi=tiket')</script>";
+		window.location=('booking.php?aksi=produk')</script>";
 		} else {
 			echo "<script>window.alert('Terjadi kesalahan saat mengupload file');
 		window.location=('booking.php?aksi=konfirmasi')</script>";
