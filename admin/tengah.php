@@ -444,7 +444,7 @@ elseif($_GET['aksi']=='editkonfirmasi'){
                             <div class='panel-heading'>EDIT  $t[kode_booking] $t[id_konfirmasi]
                             </div>
                             <div class='panel-body'>
-    <form id='form1'  method='post' action='edit.php?aksi=proseseditkonfirmasi&id_konfirmasi=$t[id_konfirmasi]'>
+    <form id='form1'  method='post' action='edit.php?aksi=proseseditkonfirmasi&id_konfirmasi=$t[id_konfirmasi]&id_booking=$t[id_booking]'>
     <div class='modal-footer'>
     <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
     <button type='submit' class='btn btn-primary'>SETUJUI PEMBAYARAN </button>
@@ -513,7 +513,7 @@ elseif($_GET['aksi']=='editkonfirmasi'){
                           </button>
                           <ul class='dropdown-menu' role='menu'>
                              <li><a href='index.php?aksi=detailbooking&id_booking=$t[id_booking]' title='Edit'><i class='fa fa-eye'></i>lihat</a></li>
-                            <li><a href='index.php?aksi=editbooking&id_booking=$t[id_booking]' title='Edit'><i class='fa fa-pencil'></i>edit</a></li>
+                           
                             <li><a href='hapus.php?aksi=hapusbooking&id_booking=$t[id_booking]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[kode_booking] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
                             </ul>
                         </div></td>
@@ -677,12 +677,15 @@ echo"
     $tebaru=mysqli_query($koneksi," SELECT * FROM konfirmasi WHERE id_booking='$t[id_booking]'");
     $tx=mysqli_fetch_array($tebaru);
     if($tx[status_bayar]=='lunas'){
-		echo"<a href='index.php?aksi=editkonfirmasi&id_konfirmasi=$tx[id_konfirmasi]' class='btn btn-primary'>SUDAH DI BAYAR </a>";
+		echo"<a href='index.php?aksi=editkonfirmasi&id_konfirmasi=$tx[id_konfirmasi]' class='btn btn-primary'>SUDAH DI BAYAR </a>
+        <a href='detaillokasi.php?id_booking=$t[id_booking]' target='_blank' class='btn btn-primary'>Buka map</a>
+        <a href='openmap.php?id_booking=$t[id_booking]' target='_blank' class='btn btn-primary'>Rute Pengiriman</a>
+        <a href='index.php?aksi=estimasi&id_booking=$t[id_booking]&id_konsumen=$t[id_konsumen]' class='btn btn-primary'>Lama Pengiriman</a>";
+
 	} else {
 		echo"<a href='' class='btn btn-primary'>Belum Di bayar</a>";
 	} echo"
-    <a href='detaillokasi.php?id_booking=$t[id_booking]' target='_blank' class='btn btn-primary'>Buka map</a>
-    <a href='openmap.php?id_booking=$t[id_booking]' target='_blank' class='btn btn-primary'>Rute Pengiriman</a>
+   
 	<a href='index.php?aksi=booking' class='btn btn-primary'>Kembali</a>
   </div><!-- /.col -->
   <div class='col-xs-6'>
@@ -711,7 +714,7 @@ echo"
 </div><!-- /.row -->
 </section>";
 }
-elseif($_GET['aksi']=='editbooking'){
+elseif($_GET['aksi']=='estimasi'){
     $tebaru=mysqli_query($koneksi," SELECT * FROM booking WHERE id_booking=$_GET[id_booking] ");
     $t=mysqli_fetch_array($tebaru);
     echo"
@@ -721,15 +724,14 @@ elseif($_GET['aksi']=='editbooking'){
                             <div class='panel-heading'>EDIT  $t[nama_booking] $t[id_booking]
                             </div>
                             <div class='panel-body'>
-    <form id='form1'  method='post' action='edit.php?aksi=proseseditbooking&id_booking=$t[id_booking]'>
-                                                <label>nama booking</label>
-                                                <input type='text' class='form-control' value='$t[nama_booking]' name='nama_booking'/><br>
-                                                <label>harga</label>
-                                                <input type='text' class='form-control' value='$t[no_hp]' name='no_hp'/><br>                                
-                                                <label>Email</label>
-                                                <input type='email' class='form-control' value='$t[email_booking]' name='email_booking'/><br>
-                                                <label>Alamat</label>
-                                                <input type='text' class='form-control' value='$t[alamat]' name='alamat'/><br>
+    <form id='form1'  method='post' action='edit.php?aksi=proseseditestimasi&id_booking=$t[id_booking]'>
+                                                <input type='hidden' class='form-control' value='$_GET[id_konsumen]' name='id_konsumen'/>
+                                                <input type='hidden' class='form-control' value='$t[id_booking]' name='id_booking'/>
+                                                <label>Lama Pengiriman</label>
+                                                <input type='text' class='form-control'  name='lama_estimasti'/><br>
+                                                <label>Status Pengiriman</label>
+                                                <input type='text' class='form-control'  name='status_estimasti'/><br>                                
+                                                
             <div class='modal-footer'>
                                                 <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                                                 <button type='submit' class='btn btn-primary'>Save </button>

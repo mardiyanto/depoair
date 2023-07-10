@@ -342,7 +342,8 @@ echo"
 	if($t[status]=='unpaid'){
 		echo"<a href='booking.php?aksi=konfirmasi&kode_booking=$t[kode_booking]' class='btn btn-primary'>KONFIRMASI PEMBAYARAN </a>";
 	} else {
-		echo"<a href='booking.php?aksi=produk' class='btn btn-primary'>SUDAH DI BAYAR </a>";
+		echo"<a href='booking.php?aksi=produk' class='btn btn-primary'>SUDAH DI BAYAR </a>
+    <a href='booking.php?aksi=lamaabc&id_booking=$t[id_booking]' class='btn btn-primary'>Cek Estimasi Pengiriman </a>";
 	}
 	echo"
 	<a href='booking.php?aksi=produk' class='btn btn-primary'>Kembali </a>
@@ -379,6 +380,40 @@ echo"
 </div><!-- /.row -->
 </section>
 ";
+}
+elseif($_GET['aksi']=='lamaabc'){
+	echo"<div class='row'>
+                    <div class='col-lg-12'>
+                        <div class='panel panel-default'>
+                            <div class='panel-heading'>INFORMASI 
+                            </div>
+                            <div class='panel-body'>	
+                            <a href='booking.php?aksi=produk'  class='btn btn-info' >Kembali</span></a></br></br>
+                            <table id='example1' class='table table-bordered table-striped'>
+                            <thead>
+                                <tr> <th>No</th>
+                                    <th>Lama Pengiriman</th>
+                                    <th>Status Pengiriman</th>	 
+                                </tr>
+                            </thead><tbody>
+            ";
+    
+$no=0;
+$sql=mysqli_query($koneksi," SELECT * FROM estimasi WHERE  id_booking='$_GET[id_booking]' AND id_konsumen='$_SESSION[id]' ORDER BY id_estimasti ASC");
+while ($t=mysqli_fetch_array($sql)){	
+$no++;
+                            echo"
+                                <tr><td>$no</td>
+                                    <td>$t[lama_estimasti]</td>
+                                    <td>$t[status_estimasti]</td> 
+            
+                                </tr>";
+}
+                        echo"
+                            </tbody></table>
+                            </div>
+                        </div>
+        </div>";
 }
 elseif($_GET['aksi']=='produk'){
 	echo"<div class='row'>

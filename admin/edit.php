@@ -25,7 +25,7 @@ elseif($_GET['aksi']=='proseseditkonsumen'){
 elseif($_GET['aksi']=='proseseditkonfirmasi'){
 	mysqli_query($koneksi,"UPDATE konfirmasi SET status_bayar='lunas' WHERE id_konfirmasi='$_GET[id_konfirmasi]'");
 	mysqli_query($koneksi,"UPDATE booking SET status='paid' WHERE kode_booking='$_POST[kode_booking]'");
-echo "<script>window.location=('index.php?aksi=konfirmasi')</script>";
+echo "<script>window.location=('index.php?aksi=detailbooking&id_booking=$_GET[id_booking]')</script>";
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 elseif($_GET['aksi']=='proseseditmenu'){
@@ -36,9 +36,9 @@ elseif($_GET['aksi']=='proseseditsubmenu'){
 	mysqli_query($koneksi,"UPDATE submenu SET nama_sub='$_POST[nama_sub]',link_sub='$_POST[link_sub]',icon_sub='$_POST[icon_sub]' WHERE id_sub='$_GET[id_sub]'");
 echo "<script>window.location=('index.php?aksi=submenu')</script>";
 }
-elseif($_GET['aksi']=='proseseditgolongan'){
-	mysqli_query($koneksi,"UPDATE golongan SET nama_gol='$_POST[nama_gol]' WHERE id_gol='$_GET[id_gol]'");
-echo "<script>window.location=('index.php?aksi=golongan')</script>";
+elseif($_GET['aksi']=='proseseditestimasi'){
+	mysqli_query($koneksi,"insert into estimasi (id_booking,id_konsumen, lama_estimasti,status_estimasti) values ('$_POST[id_booking]','$_POST[id_konsumen]','$_POST[lama_estimasti]','$_POST[status_estimasti]')");  
+echo "<script>window.location=('index.php?aksi=booking')</script>";
 }
 elseif($_GET['aksi']=='proseseditjabatan'){
 	mysqli_query($koneksi,"UPDATE jabatan SET nama_jabatan='$_POST[nama_jabatan]' WHERE id_jabatan='$_GET[id_jabatan]'");
